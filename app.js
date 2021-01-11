@@ -1,20 +1,20 @@
-const ids = new Set()
-
-//添加元素
-ids.add('a')
-ids.add(1)
-ids.add('b')
-ids.add(1)
-
-//集合遍历元素
-for (const id of ids) {
-  console.log(id)
+const person = {
+  name: 'John',
+  age: 33,
+  hobbies: ['Sports', 'Music'],
+  greeting() {
+    console.log('Hello, I am ' + this.name)
+  },
 }
 
-//集合访问元素
-console.log(ids.has('a'))
+// console.log(person[0])
+console.log(person['name'])
+console.log(person.name)
+//添加属性
+person.sex = 'male'
+//删除属性
+delete person.age
 
-//集合删除元素
-ids.delete('b')
-console.log(ids)
-console.log(ids[0])
+//有方法，添加功能
+person.greeting()
+console.log(person)
