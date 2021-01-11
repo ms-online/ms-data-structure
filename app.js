@@ -1,22 +1,20 @@
-const names = ['Summer', 'Henry', 'Lucy', 'Summer']
-
-//索引值从0开始
-console.log(names[1])
-console.log(names.length)
-
-//for循环遍历
-for (const name of names) {
-  console.log(name)
-}
+const ids = new Set()
 
 //添加元素
-names.push('Lucy')
-console.log(names.length)
+ids.add('a')
+ids.add(1)
+ids.add('b')
+ids.add(1)
 
-//查询元素
-const lucyIndex = names.findIndex((name) => name === 'Lucy')
-console.log(lucyIndex)
+//集合遍历元素
+for (const id of ids) {
+  console.log(id)
+}
 
-//删除元素
-names.splice(2, 1)
-console.log(names)
+//集合访问元素
+console.log(ids.has('a'))
+
+//集合删除元素
+ids.delete('b')
+console.log(ids)
+console.log(ids[0])
