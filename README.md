@@ -1,1 +1,1 @@
-lesson-13：delete 方法
+lesson-14：find & insertAfter 方法

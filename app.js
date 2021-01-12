@@ -25,6 +25,29 @@ class LinkedList {
     }
   }
 
+  //find 节点查询
+  find(value) {
+    if (!this.head) {
+      return null
+    }
+
+    let curNode = this.head
+    while (curNode) {
+      if (curNode.value === value) {
+        return curNode
+      }
+      curNode = curNode.next
+    }
+    return null
+  }
+  //insertAfter 某个节点后面插入
+  insertAfter(value, afterValue) {
+    const existingNode = this.find(afterValue)
+    if (existingNode) {
+      const newNode = { value: value, next: existingNode.next }
+      existingNode.next = newNode
+    }
+  }
   //delete 删除节点
   delete(value) {
     if (!this.head) {
@@ -75,3 +98,5 @@ linkedList1.delete('第一个元素')
 linkedList1.delete(5)
 
 console.log(linkedList1.toArray())
+console.log(linkedList1.find('Summer'))
+console.log(linkedList1.find(true))
