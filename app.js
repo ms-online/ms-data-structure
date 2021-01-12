@@ -25,6 +25,26 @@ class LinkedList {
     }
   }
 
+  //delete 删除节点
+  delete(value) {
+    if (!this.head) {
+      return
+    }
+    while (this.head && this.head.value === value) {
+      this.head = this.head.next
+    }
+    let curNode = this.head
+    while (curNode.next) {
+      if (curNode.next.value === value) {
+        curNode.next = curNode.next.next
+      } else {
+        curNode = curNode.next
+      }
+    }
+    if (this.tail.value === value) {
+      this.tail = curNode
+    }
+  }
   //以数组方式输出节点
   toArray() {
     const elements = []
@@ -41,9 +61,17 @@ const linkedList1 = new LinkedList()
 
 linkedList1.append(1)
 linkedList1.append('Summer')
+linkedList1.append('Summer')
 linkedList1.append('Hello')
 linkedList1.append(5)
 linkedList1.append(true)
 linkedList1.prepend('第一个元素')
+linkedList1.prepend('第一个元素')
+
+console.log(linkedList1.toArray())
+
+linkedList1.delete('Summer')
+linkedList1.delete('第一个元素')
+linkedList1.delete(5)
 
 console.log(linkedList1.toArray())

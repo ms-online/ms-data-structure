@@ -1,1 +1,1 @@
-lesson-12：prepend 方法
+lesson-13：delete 方法
