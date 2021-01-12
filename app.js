@@ -15,6 +15,16 @@ class LinkedList {
       this.head = newNode
     }
   }
+
+  //prepend 前置节点（头部添加）
+  prepend(value) {
+    const newNode = { value: value, next: this.head }
+    this.head = newNode
+    if (!this.tail) {
+      this.tail = newNode
+    }
+  }
+
   //以数组方式输出节点
   toArray() {
     const elements = []
@@ -34,5 +44,6 @@ linkedList1.append('Summer')
 linkedList1.append('Hello')
 linkedList1.append(5)
 linkedList1.append(true)
+linkedList1.prepend('第一个元素')
 
 console.log(linkedList1.toArray())
