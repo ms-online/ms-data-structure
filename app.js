@@ -15,6 +15,24 @@ class LinkedList {
       this.head = newNode
     }
   }
+  //以数组方式输出节点
+  toArray() {
+    const elements = []
+    let curNode = this.head
+    while (curNode) {
+      elements.push(curNode)
+      curNode = curNode.next
+    }
+    return elements
+  }
 }
 
 const linkedList1 = new LinkedList()
+
+linkedList1.append(1)
+linkedList1.append('Summer')
+linkedList1.append('Hello')
+linkedList1.append(5)
+linkedList1.append(true)
+
+console.log(linkedList1.toArray())
