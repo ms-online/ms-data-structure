@@ -1,26 +1,36 @@
-const words = 'ehehlloworld'
+class HashTable {
+  constructor() {
+    this.size = 1000
+    this.buckets = Array(1000).fill(null)
+  }
 
-//双重for循环
-// function findFirst(str) {
-//   for (let i = 0; i < str.length; i++) {
-//     for (let j = i + 1; j < str.length; j++) {
-//       if (str[i] === str[j]) {
-//         return str[i]
-//       }
-//     }
-//   }
-// }
-//大O符号：O(n^2)
-// console.log(findFirst(words))
+  hash(key) {
+    let hash = 0
+    for (const char of key) {
+      hash += char.charCodeAt(0)
+    }
+    return hash % this.size
+  }
 
-//通过对象（哈希表）
+  set(key, value) {
+    const keyHash = this.hash(key)
+    this.buckets[keyHash] = value
+  }
+
+  get(key) {
+    const keyHash = this.hash(key)
+    return this.buckets[keyHash]
+  }
+}
+
+const words = 'helloworld'
 function findFirstRep(str) {
-  const table = {}
+  const table = new HashTable()
   for (const word of str) {
-    if (table[word]) {
+    if (table.get(word)) {
       return word
     }
-    table[word] = 1
+    table.set(word, 1)
   }
 }
 
