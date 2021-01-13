@@ -1,22 +1,35 @@
-//列表结构——数组
-const shoppingList = ['Apple', 'Banana', 'Orange']
+class Stack {
+  constructor() {
+    this.items = []
+  }
+  push(value) {
+    this.items.push(value)
+  }
 
-const thirdItem = shoppingList[2]
+  pop() {
+    return this.items.pop()
+  }
 
-for (const item of shoppingList) {
-  //得到每一项采购的水果名称
+  isEmpty() {
+    return this.items.length === 0
+  }
+
+  toArray() {
+    return this.items.slice()
+  }
 }
 
-//表格结构——对象
-const citizens = {
-  123: {
-    name: 'summer',
-    age: 26,
-    sex: 'female',
-    address: 'xxxx',
-    birthdate: 'xxx',
-  },
-  456: {},
-}
+const stack = new Stack()
 
-const summerData = citizens['123'] // ==> summer相关的信息
+stack.push('关冰箱门！')
+stack.push('推入大象')
+stack.push('开冰箱门！')
+
+console.log(stack.toArray())
+
+console.log(stack.pop())
+console.log(stack.toArray())
+console.log(stack.pop())
+console.log(stack.toArray())
+console.log(stack.pop())
+console.log(stack.toArray())
