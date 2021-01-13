@@ -1,38 +1,28 @@
-import { LinkedList } from './linked-list.js'
+const words = 'ehehlloworld'
 
-class Queue {
-  constructor() {
-    this.list = new LinkedList()
-  }
+//双重for循环
+// function findFirst(str) {
+//   for (let i = 0; i < str.length; i++) {
+//     for (let j = i + 1; j < str.length; j++) {
+//       if (str[i] === str[j]) {
+//         return str[i]
+//       }
+//     }
+//   }
+// }
+//大O符号：O(n^2)
+// console.log(findFirst(words))
 
-  enqueue(value) {
-    this.list.append(value)
-  }
-
-  dequeue() {
-    return this.list.deleteHead()
-  }
-
-  isEmpty() {
-    return !this.list.head
-  }
-
-  toArray() {
-    return this.list.toArray()
+//通过对象（哈希表）
+function findFirstRep(str) {
+  const table = {}
+  for (const word of str) {
+    if (table[word]) {
+      return word
+    }
+    table[word] = 1
   }
 }
 
-const queue = new Queue()
-
-queue.enqueue('第1号')
-queue.enqueue('第2号')
-queue.enqueue('第3号')
-
-console.log(queue.toArray())
-
-console.log(queue.dequeue())
-console.log(queue.toArray())
-console.log(queue.dequeue())
-console.log(queue.toArray())
-console.log(queue.dequeue())
-console.log(queue.toArray())
+//大O符号：O(n)
+console.log(findFirstRep(words))
