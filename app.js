@@ -1,35 +1,15 @@
+import { LinkedList } from './linked-list.js'
+
 class Stack {
   constructor() {
-    this.items = []
-  }
-  push(value) {
-    this.items.push(value)
+    this.list = new LinkedList()
   }
 
-  pop() {
-    return this.items.pop()
-  }
+  push() {}
 
-  isEmpty() {
-    return this.items.length === 0
-  }
+  pop() {}
 
-  toArray() {
-    return this.items.slice()
-  }
+  isEmpty() {}
+
+  toArray() {}
 }
-
-const stack = new Stack()
-
-stack.push('关冰箱门！')
-stack.push('推入大象')
-stack.push('开冰箱门！')
-
-console.log(stack.toArray())
-
-console.log(stack.pop())
-console.log(stack.toArray())
-console.log(stack.pop())
-console.log(stack.toArray())
-console.log(stack.pop())
-console.log(stack.toArray())
