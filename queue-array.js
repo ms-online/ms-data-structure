@@ -1,24 +1,22 @@
-import { LinkedList } from './linked-list.js'
-
 class Queue {
   constructor() {
-    this.list = new LinkedList()
+    this.items = []
   }
 
   enqueue(value) {
-    this.list.append(value)
+    this.items.unshift(value)
   }
 
   dequeue() {
-    return this.list.deleteHead()
+    return this.items.pop()
   }
 
   isEmpty() {
-    return !this.list.head
+    return this.items.length === 0
   }
 
   toArray() {
-    return this.list.toArray()
+    return this.items.slice()
   }
 }
 
