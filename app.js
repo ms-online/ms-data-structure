@@ -1,38 +1,36 @@
-import { LinkedList } from './linked-list.js'
-
-class Stack {
+class Queue {
   constructor() {
-    this.list = new LinkedList()
+    this.items = []
   }
 
-  push(value) {
-    this.list.prepend(value)
+  enqueue(value) {
+    this.items.unshift(value)
   }
 
-  pop() {
-    return this.list.deleteHead()
+  dequeue() {
+    return this.items.pop()
   }
 
   isEmpty() {
-    return !this.list.head
+    return this.items.length === 0
   }
 
   toArray() {
-    return this.list.toArray()
+    return this.items.slice()
   }
 }
 
-const stack = new Stack()
+const queue = new Queue()
 
-stack.push('关冰箱门！')
-stack.push('推入大象')
-stack.push('开冰箱门！')
+queue.enqueue('第1号')
+queue.enqueue('第2号')
+queue.enqueue('第3号')
 
-console.log(stack.toArray())
+console.log(queue.toArray())
 
-console.log(stack.pop())
-console.log(stack.toArray())
-console.log(stack.pop())
-console.log(stack.toArray())
-console.log(stack.pop())
-console.log(stack.toArray())
+console.log(queue.dequeue())
+console.log(queue.toArray())
+console.log(queue.dequeue())
+console.log(queue.toArray())
+console.log(queue.dequeue())
+console.log(queue.toArray())
