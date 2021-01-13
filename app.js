@@ -1,7 +1,7 @@
 class HashTable {
   constructor() {
-    this.size = 1000
-    this.buckets = Array(1000).fill(null)
+    this.size = 16
+    this.buckets = Array(16).fill(null)
   }
 
   hash(key) {
@@ -21,18 +21,28 @@ class HashTable {
     const keyHash = this.hash(key)
     return this.buckets[keyHash]
   }
-}
 
-const words = 'helloworld'
-function findFirstRep(str) {
-  const table = new HashTable()
-  for (const word of str) {
-    if (table.get(word)) {
-      return word
+  showInfo() {
+    for (const key in this.buckets) {
+      if (this.buckets[key] !== null) {
+        console.log(key, this.buckets[key])
+      }
     }
-    table.set(word, 1)
   }
 }
 
-//大O符号：O(n)
-console.log(findFirstRep(words))
+const table = new HashTable()
+
+for (const char of 'abcde') {
+  table.set(char, char)
+}
+
+for (const char of 'fghijk') {
+  table.set(char, char)
+}
+
+for (const char of 'lmnopq') {
+  table.set(char, char)
+}
+
+console.log(table.showInfo())
