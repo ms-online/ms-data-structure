@@ -1,24 +1,21 @@
-import { LinkedList } from './linked-list.js'
-
 class Stack {
   constructor() {
-    this.list = new LinkedList()
+    this.items = []
   }
-
   push(value) {
-    this.list.prepend(value)
+    this.items.push(value)
   }
 
   pop() {
-    return this.list.deleteHead()
+    return this.items.pop()
   }
 
   isEmpty() {
-    return !this.list.head
+    return this.items.length === 0
   }
 
   toArray() {
-    return this.list.toArray()
+    return this.items.slice()
   }
 }
 

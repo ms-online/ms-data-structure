@@ -68,6 +68,22 @@ export class LinkedList {
       this.tail = curNode
     }
   }
+  // 删除头部节点
+  deleteHead() {
+    if (!this.head) {
+      return null
+    }
+    const deleteHead = this.head
+    if (this.head.next) {
+      this.head = this.head.next
+    } else {
+      this.head = null
+      this.tail = null
+    }
+
+    return deleteHead
+  }
+
   //以数组方式输出节点
   toArray() {
     const elements = []
