@@ -1,9 +1,7 @@
 class HashTable {
   constructor() {
-    this.size = 16
-    this.buckets = Array(16)
-      .fill(null)
-      .map(() => [])
+    this.size = 100
+    this.buckets = Array(100).fill(null)
   }
 
   hash(key) {
@@ -15,26 +13,28 @@ class HashTable {
   }
 
   set(key, value) {
-    const keyHash = this.hash(key)
-    const bucketArray = this.buckets[keyHash]
-    const storedElment = bucketArray.find((element) => {
-      return element.key === key
-    })
-    if (storedElment) {
-      storedElment.val = value
+    let keyHash = this.hash(key)
+    if (this.buckets[keyHash] === null || this.buckets[keyHash].key === key) {
+      this.buckets[keyHash] = { key: key, val: value }
     } else {
-      bucketArray.push({ key: key, val: value })
+      while (this.buckets[keyHash] !== null) {
+        keyHash++
+      }
+      this.buckets[keyHash] = { key: key, val: value }
     }
   }
 
   get(key) {
     const keyHash = this.hash(key)
-    const bucketArray = this.buckets[keyHash]
-    const storedElment = bucketArray.find((element) => {
-      return element.key === key
-    })
-
-    return storedElment
+    for (let i = keyHash; i < this.buckets.length; i++) {
+      if (!this.buckets[i]) {
+        continue
+      }
+      if (this.buckets[i].key === key) {
+        return this.buckets[i].value
+      }
+    }
+    return undefined
   }
 
   showInfo() {
@@ -48,7 +48,7 @@ class HashTable {
 
 const table = new HashTable()
 
-for (const char of 'abcde') {
+for (const char of 'abcdee') {
   table.set(char, char)
 }
 
@@ -56,7 +56,7 @@ for (const char of 'fghijk') {
   table.set(char, char)
 }
 
-for (const char of 'lmnopqr') {
+for (const char of 'lmnopq') {
   table.set(char, char)
 }
 
