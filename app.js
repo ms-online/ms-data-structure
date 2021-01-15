@@ -55,13 +55,28 @@ class Node {
     }
   }
 
+  // find(value) {
+  //   console.log(this)
+  //   //深度优先搜索
+  //   for (const child of this.children) {
+  //     if (child.value === value) {
+  //       return child
+  //     }
+  //     const nestedChildNode = child.find(value)
+  //     if (nestedChildNode) {
+  //       return nestedChildNode
+  //     }
+  //   }
+  // }
   find(value) {
     console.log(this)
-    //深度搜索
+    //广度优先搜索
     for (const child of this.children) {
       if (child.value === value) {
         return child
       }
+    }
+    for (const child of this.children) {
       const nestedChildNode = child.find(value)
       if (nestedChildNode) {
         return nestedChildNode
