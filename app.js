@@ -30,8 +30,29 @@ class Node {
     }
   }
 
-  removeNode(index) {
-    this.children.splice(index, 1)
+  removeNode(value) {
+    const segments = value.split('/')
+    if (segments.length === 0) {
+      return
+    }
+    if (segments.length === 1) {
+      const existingChildNode = this.children.findIndex(
+        (child) => child.value === segments[0]
+      )
+      if (existingChildNode < 0) {
+        throw new Error('无法找到匹配的值！')
+      }
+      this.children.splice(existingChildNode, 1)
+    }
+    if (segments.length > 1) {
+      const existingChildNode = this.children.find(
+        (child) => child.value === segments[0]
+      )
+      if (!existingChildNode) {
+        throw new Error('无法找到匹配的路径！路径为：' + segments[0])
+      }
+      existingChildNode.removeNode(segments.slice(1).join('/'))
+    }
   }
 }
 
@@ -42,7 +63,9 @@ class Tree {
   add(path) {
     this.root.addNode(path)
   }
-  remove(path) {}
+  remove(path) {
+    this.root.removeNode(path)
+  }
 }
 
 const filesystem = new Tree('/')
@@ -57,5 +80,7 @@ filesystem.add('pages文稿/工作/code.js')
 filesystem.add('下载/ps.dmg/ps.exe')
 filesystem.add('下载/ps.dmg/ps.txt')
 filesystem.remove('pages文稿/工作/code.js')
+filesystem.remove('下载/ps.dmg/ps.txt')
+// filesystem.remove('pages文稿/工作1/code.js')
 
 console.log(filesystem)
