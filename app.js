@@ -54,6 +54,20 @@ class Node {
       existingChildNode.removeNode(segments.slice(1).join('/'))
     }
   }
+
+  find(value) {
+    console.log(this)
+    //深度搜索
+    for (const child of this.children) {
+      if (child.value === value) {
+        return child
+      }
+      const nestedChildNode = child.find(value)
+      if (nestedChildNode) {
+        return nestedChildNode
+      }
+    }
+  }
 }
 
 class Tree {
@@ -65,6 +79,13 @@ class Tree {
   }
   remove(path) {
     this.root.removeNode(path)
+  }
+  find(value) {
+    if (this.root.value === value) {
+      return this.root
+    }
+
+    return this.root.find(value)
   }
 }
 
@@ -82,5 +103,7 @@ filesystem.add('下载/ps.dmg/ps.txt')
 filesystem.remove('pages文稿/工作/code.js')
 filesystem.remove('下载/ps.dmg/ps.txt')
 // filesystem.remove('pages文稿/工作1/code.js')
+
+console.log(filesystem.find('ps.exe'))
 
 console.log(filesystem)
