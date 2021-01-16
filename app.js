@@ -3,6 +3,7 @@ class Node {
     this.value = value
     this.right = null
     this.left = null
+    this.parent = null
   }
 
   add(value) {
@@ -17,6 +18,7 @@ class Node {
         return
       }
       const newNode = new Node(value)
+      newNode.parent = this
       this.right = newNode
       return
     }
@@ -27,7 +29,31 @@ class Node {
         return
       }
       const newNode = new Node(value)
+      newNode.parent = this
       this.left = newNode
+      return
+    }
+  }
+
+  remove(value) {
+    const identifiedNode = this.find(value)
+
+    if (!identifiedNode) {
+      throw new Error('无法找到匹配的结点值')
+    }
+    //删除的结点是树叶的情况
+    if (!identifiedNode.left && !identifiedNode.right) {
+      const identifiedParent = identifiedNode.parent
+      identifiedParent.removeChild(identifiedNode)
+    }
+  }
+  removeChild(node) {
+    if (this.left && this.left === node) {
+      this.left = null
+      return
+    }
+    if (this.right && this.right === node) {
+      this.right = null
       return
     }
   }
@@ -74,6 +100,7 @@ tree.add(7)
 tree.add(15)
 tree.add(25)
 tree.add(30)
+tree.remove(30)
 
 console.log(tree)
 console.log(tree.find(7))
