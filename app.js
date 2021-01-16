@@ -49,13 +49,28 @@ class Node {
     }
 
     //删除的结点有子结点
-    if (identifiedNode.left && !identifiedNode.right) {
+    if (identifiedNode.left && identifiedNode.right) {
+      const nextBiggerNode = identifiedNode.right.findNext()
+      if (nextBiggerNode.value !== identifiedNode.right.value) {
+        this.remove(nextBiggerNode.value)
+        identifiedNode.value = nextBiggerNode.value
+      } else {
+        identifiedNode.value = identifiedNode.right.value
+        identifiedNode.right = identifiedNode.right.right
+      }
     } else {
       const childNode = identifiedNode.left || identifiedNode.right
 
       identifiedNode.left = childNode.left
       identifiedNode.right = childNode.right
       identifiedNode.value = childNode.value
+    }
+
+    if (identifiedNode.left) {
+      identifiedNode.left.parent = identifiedNode
+    }
+    if (identifiedNode.right) {
+      identifiedNode.right.parent = identifiedNode
     }
   }
   removeChild(node) {
@@ -67,6 +82,13 @@ class Node {
       this.right = null
       return
     }
+  }
+
+  findNext() {
+    if (!this.left) {
+      return this
+    }
+    return this.left.findNext()
   }
 
   find(value) {
@@ -110,11 +132,15 @@ tree.add(2)
 tree.add(7)
 tree.add(15)
 tree.add(25)
-tree.add(26)
+tree.add(23)
+tree.add(21)
 tree.add(28)
+tree.add(27)
+tree.add(26)
 tree.add(30)
 tree.remove(30)
 tree.remove(25)
+tree.remove(15)
 
 console.log(tree)
 console.log(tree.find(7))
