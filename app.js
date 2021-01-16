@@ -45,6 +45,17 @@ class Node {
     if (!identifiedNode.left && !identifiedNode.right) {
       const identifiedParent = identifiedNode.parent
       identifiedParent.removeChild(identifiedNode)
+      return
+    }
+
+    //删除的结点有子结点
+    if (identifiedNode.left && !identifiedNode.right) {
+    } else {
+      const childNode = identifiedNode.left || identifiedNode.right
+
+      identifiedNode.left = childNode.left
+      identifiedNode.right = childNode.right
+      identifiedNode.value = childNode.value
     }
   }
   removeChild(node) {
@@ -99,8 +110,11 @@ tree.add(2)
 tree.add(7)
 tree.add(15)
 tree.add(25)
+tree.add(26)
+tree.add(28)
 tree.add(30)
 tree.remove(30)
+tree.remove(25)
 
 console.log(tree)
 console.log(tree.find(7))
