@@ -242,13 +242,33 @@ class AVLTree extends Tree {
 
     this.rotateRight(node)
   }
+  //双向旋转（先右后左）
+  rotateRightLeft(node) {
+    const rightNode = node.right
+    node.right = null
+
+    const rightLeftNode = rightNode.left
+    rightNode.left = null
+
+    if (rightLeftNode.right) {
+      rightNode.left = rightLeftNode.right
+      rightNode.left.parent = rightNode
+      rightLeftNode.right = null
+    }
+    node.right = rightLeftNode
+    node.right.parent = node
+
+    rightLeftNode.right = rightNode
+    rightLeftNode.right.parent = rightLeftNode
+
+    this.rotateLeft(node)
+  }
 }
 
 const tree = new AVLTree()
 
-tree.add(5)
+tree.add(1)
 tree.add(3)
-tree.add(4)
 tree.add(2)
 
 console.log(tree)
