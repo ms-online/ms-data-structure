@@ -146,7 +146,40 @@ class Tree {
   }
 }
 
-const tree = new Tree()
+class AVLTree extends Tree {
+  add(value) {
+    super.add(value)
+
+    let curNode = this.root.find(value)
+    this.balance(curNode)
+  }
+  remove(value) {
+    super.remove(value)
+    this.balance(this.root)
+  }
+
+  balance(node) {
+    if (node.balanceFactor < -1) {
+      //单向左旋
+      if (node.right.balanceFactor < 0) {
+        this.rotateLeft(node)
+      } else if (node.right.balanceFactor > 0) {
+        //双向旋转（先右后左）
+        this.rotateRightLeft(node)
+      }
+    } else if (node.balanceFactor > 1) {
+      //双向旋转（先左后右）
+      if (node.left.balanceFactor < 0) {
+        this.rotateLeftRight(node)
+      } else if (node.left.balanceFactor > 0) {
+        //单向右旋
+        this.rotateRight(node)
+      }
+    }
+  }
+}
+
+const tree = new AVLTree()
 
 tree.add(1)
 tree.add(2)
