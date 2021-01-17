@@ -6,6 +6,28 @@ class Node {
     this.parent = null
   }
 
+  //AVL树自平衡
+  get leftDepth() {
+    if (!this.left) {
+      return 0
+    }
+    return this.left.depth + 1
+  }
+
+  get rightDepth() {
+    if (!this.right) {
+      return 0
+    }
+    return this.right.depth + 1
+  }
+  get depth() {
+    return Math.max(this.leftDepth, this.rightDepth)
+  }
+
+  get balanceFactor() {
+    return this.leftDepth - this.rightDepth
+  }
+
   add(value) {
     if (this.value === null) {
       this.value = value
@@ -126,23 +148,8 @@ class Tree {
 
 const tree = new Tree()
 
-tree.add(10)
-tree.add(5)
+tree.add(1)
 tree.add(2)
-tree.add(7)
-tree.add(15)
-tree.add(25)
-tree.add(23)
-tree.add(21)
-tree.add(28)
-tree.add(27)
-tree.add(26)
-tree.add(30)
-tree.remove(30)
-tree.remove(25)
-tree.remove(15)
+tree.add(3)
 
 console.log(tree)
-console.log(tree.find(7))
-console.log(tree.find(30))
-console.log(tree.find(11))
