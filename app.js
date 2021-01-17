@@ -151,7 +151,10 @@ class AVLTree extends Tree {
     super.add(value)
 
     let curNode = this.root.find(value)
-    this.balance(curNode)
+    while (curNode) {
+      this.balance(curNode)
+      curNode = curNode.parent
+    }
   }
   remove(value) {
     super.remove(value)
@@ -176,6 +179,27 @@ class AVLTree extends Tree {
         this.rotateRight(node)
       }
     }
+  }
+
+  //单向左旋
+  rotateLeft(node) {
+    const rightNode = node.right
+    node.right = null
+
+    if (node.parent) {
+      node.parent.right = rightNode
+      node.parent.right.parent = node.parent
+    } else if (node === this.root) {
+      this.root = rightNode
+      this.root.parent = null
+    }
+
+    if (rightNode.left) {
+      node.right = rightNode.left
+      node.right.parent = node
+    }
+    rightNode.left = node
+    rightNode.left.parent = rightNode
   }
 }
 
