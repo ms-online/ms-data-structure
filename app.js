@@ -33,7 +33,15 @@ class Trie {
       }
       node = node.children[letterIndext]
     }
+    if (node.value === null) {
+      return false
+    }
     return node
+  }
+
+  remove(key) {
+    const node = this.find(key)
+    node.value = null
   }
 }
 
@@ -43,6 +51,10 @@ trie.insert('age', 25)
 trie.insert('name', 'summer')
 trie.insert('names', ['summer', 'henry'])
 
+console.log(trie)
+
+trie.remove('age')
+trie.remove('name')
 console.log(trie)
 
 console.log(trie.find('age'))
