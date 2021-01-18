@@ -22,6 +22,19 @@ class Trie {
     }
     node.value = value
   }
+
+  find(key) {
+    let node = this.root
+    for (let i = 0; i < key.length; i++) {
+      const letterIndext = key[i].charCodeAt(0) - 97
+
+      if (!node.children[letterIndext]) {
+        return false
+      }
+      node = node.children[letterIndext]
+    }
+    return node
+  }
 }
 
 const trie = new Trie()
@@ -31,3 +44,8 @@ trie.insert('name', 'summer')
 trie.insert('names', ['summer', 'henry'])
 
 console.log(trie)
+
+console.log(trie.find('age'))
+console.log(trie.find('name'))
+console.log(trie.find('names'))
+console.log(trie.find('email'))
