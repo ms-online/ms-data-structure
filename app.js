@@ -1,20 +1,27 @@
-class MaxHeap {
+class Node {
+  constructor(value, priority) {
+    this.value = value
+    this.priority = priority
+  }
+}
+class PriorityQueue {
   constructor() {
     this.heapElements = []
   }
 
-  insert(value) {
-    this.heapElements.push(value)
+  insert(value, priority) {
+    const newNode = new Node(value, priority)
+    this.heapElements.push(newNode)
     let currentElementIndex = this.heapElements.length - 1
     let parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1
 
     while (
-      this.heapElements[currentElementIndex] >
-        this.heapElements[parentElementIndex] &&
-      parentElementIndex >= 0
+      parentElementIndex >= 0 &&
+      this.heapElements[currentElementIndex].priority >
+        this.heapElements[parentElementIndex].priority
     ) {
       const parentElement = this.heapElements[parentElementIndex]
-      this.heapElements[parentElementIndex] = value
+      this.heapElements[parentElementIndex] = newNode
       this.heapElements[currentElementIndex] = parentElement
       currentElementIndex = parentElementIndex
       parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1
@@ -39,14 +46,15 @@ class MaxHeap {
 
     let childElementIndex =
       this.heapElements[rightChildIndex] &&
-      this.heapElements[rightChildIndex] >= this.heapElements[leftChildIndex]
+      this.heapElements[rightChildIndex].priority >=
+        this.heapElements[leftChildIndex].priority
         ? rightChildIndex
         : leftChildIndex
 
     while (
       this.heapElements[childElementIndex] &&
-      this.heapElements[currentElementIndex] <=
-        this.heapElements[childElementIndex]
+      this.heapElements[currentElementIndex].priority <=
+        this.heapElements[childElementIndex].priority
     ) {
       const currentNode = this.heapElements[currentElementIndex]
       const currentChildNode = this.heapElements[childElementIndex]
@@ -61,7 +69,8 @@ class MaxHeap {
 
       childElementIndex =
         this.heapElements[rightChildIndex] &&
-        this.heapElements[rightChildIndex] >= this.heapElements[leftChildIndex]
+        this.heapElements[rightChildIndex].priority >=
+          this.heapElements[leftChildIndex].priority
           ? rightChildIndex
           : leftChildIndex
     }
@@ -69,29 +78,39 @@ class MaxHeap {
     return topElement
   }
 }
-const heap = new MaxHeap()
+const heap = new PriorityQueue()
 
-heap.insert(101)
-heap.insert(197)
-heap.insert(40)
-heap.insert(12)
-heap.insert(15)
-heap.insert(85)
-heap.insert(250)
-heap.insert(6)
-heap.insert(54)
-heap.insert(32)
-heap.insert(20)
-heap.insert(3)
-heap.insert(1)
-heap.insert(5)
+// heap.insert(101)
+// heap.insert(197)
+// heap.insert(40)
+// heap.insert(12)
+// heap.insert(15)
+// heap.insert(85)
+// heap.insert(250)
+// heap.insert(6)
+// heap.insert(54)
+// heap.insert(32)
+// heap.insert(20)
+// heap.insert(3)
+// heap.insert(1)
+// heap.insert(5)
 
-console.log(heap.process())
-console.log(heap.process())
-console.log(heap.process())
-console.log(heap.process())
-console.log(heap.process())
-console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+// console.log(heap.process())
+
+heap.insert('打扫卫生', 5)
+heap.insert('看书', 15)
+heap.insert('做饭', 20)
+heap.insert('学习', 10)
+heap.insert('运动', 1)
+
 console.log(heap.process())
 console.log(heap.process())
 console.log(heap.process())
