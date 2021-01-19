@@ -1,46 +1,34 @@
-class Node {
-  constructor(value, priority) {
-    this.value = value
-    this.next = null
-    this.priority = priority
-  }
-}
-
-class PriorityQueue {
+class Heap {
   constructor() {
-    this.first = null
+    this.heapElements = []
   }
-  //3(1),4(8),5(10)
-  insert(value, priority) {
-    const newNode = new Node(value, priority)
 
-    if (!this.first || priority > this.first.priority) {
-      newNode.next = this.first
-      this.first = newNode
-    } else {
-      let currentNode = this.first
+  insert(value) {
+    this.heapElements.push(value)
+    let currentElementIndex = this.heapElements.length - 1
+    let parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1
 
-      while (currentNode.next && priority < currentNode.next.priority) {
-        currentNode = currentNode.next
-      }
-      //3(1),4(8), 6(9), 5(10)
-      newNode.next = currentNode.next
-      currentNode.next = newNode
+    while (
+      this.heapElements[currentElementIndex] >
+        this.heapElements[parentElementIndex] &&
+      parentElementIndex >= 0
+    ) {
+      const parentElement = this.heapElements[parentElementIndex]
+      this.heapElements[parentElementIndex] = value
+      this.heapElements[currentElementIndex] = parentElement
+      currentElementIndex = parentElementIndex
+      parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1
     }
   }
-  process() {
-    const first = this.first
-    this.first = this.first.next
-    return first
-  }
 }
+const heap = new Heap()
 
-const priorityQueue = new PriorityQueue()
+heap.insert(54)
+heap.insert(230)
+heap.insert(180)
+heap.insert(100)
+heap.insert(98)
+heap.insert(260)
+heap.insert(280)
 
-priorityQueue.insert('打扫卫生', 1)
-priorityQueue.insert('做饭', 10)
-priorityQueue.insert('学习', 100)
-
-console.log(priorityQueue.process())
-console.log(priorityQueue.process())
-console.log(priorityQueue.process())
+console.log(heap)
