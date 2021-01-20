@@ -1,117 +1,35 @@
-class Node {
-  constructor(value, priority) {
-    this.value = value
-    this.priority = priority
-  }
-}
-class PriorityQueue {
+class Graph {
   constructor() {
-    this.heapElements = []
+    this.nodes = {}
+    this.edges = {}
   }
 
-  insert(value, priority) {
-    const newNode = new Node(value, priority)
-    this.heapElements.push(newNode)
-    let currentElementIndex = this.heapElements.length - 1
-    let parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1
-
-    while (
-      parentElementIndex >= 0 &&
-      this.heapElements[currentElementIndex].priority >
-        this.heapElements[parentElementIndex].priority
-    ) {
-      const parentElement = this.heapElements[parentElementIndex]
-      this.heapElements[parentElementIndex] = newNode
-      this.heapElements[currentElementIndex] = parentElement
-      currentElementIndex = parentElementIndex
-      parentElementIndex = Math.floor((currentElementIndex + 1) / 2) - 1
-    }
+  addNode(identifier, value) {
+    this.nodes[identifier] = value
   }
-  process() {
-    if (this.heapElements.length === 0) {
-      return null
-    }
-
-    if (this.heapElements.length === 1) {
-      return this.heapElements.pop()
-    }
-
-    const topElement = this.heapElements[0]
-
-    this.heapElements[0] = this.heapElements.pop()
-
-    let currentElementIndex = 0
-    let leftChildIndex = 2 * currentElementIndex + 1
-    let rightChildIndex = 2 * currentElementIndex + 2
-
-    let childElementIndex =
-      this.heapElements[rightChildIndex] &&
-      this.heapElements[rightChildIndex].priority >=
-        this.heapElements[leftChildIndex].priority
-        ? rightChildIndex
-        : leftChildIndex
-
-    while (
-      this.heapElements[childElementIndex] &&
-      this.heapElements[currentElementIndex].priority <=
-        this.heapElements[childElementIndex].priority
+  // {
+  // 1:[2]
+  // }
+  addEdge(startNode, endNode) {
+    if (
+      this.edges[startNode] &&
+      this.edges[startNode].indexOf(endNode) === -1
     ) {
-      const currentNode = this.heapElements[currentElementIndex]
-      const currentChildNode = this.heapElements[childElementIndex]
-
-      this.heapElements[currentElementIndex] = currentChildNode
-      this.heapElements[childElementIndex] = currentNode
-
-      currentElementIndex = childElementIndex
-
-      leftChildIndex = 2 * currentElementIndex + 1
-      rightChildIndex = 2 * currentElementIndex + 2
-
-      childElementIndex =
-        this.heapElements[rightChildIndex] &&
-        this.heapElements[rightChildIndex].priority >=
-          this.heapElements[leftChildIndex].priority
-          ? rightChildIndex
-          : leftChildIndex
+      this.edges[startNode].push(endNode)
+    } else {
+      this.edges[startNode] = [endNode]
     }
-
-    return topElement
   }
 }
-const heap = new PriorityQueue()
 
-// heap.insert(101)
-// heap.insert(197)
-// heap.insert(40)
-// heap.insert(12)
-// heap.insert(15)
-// heap.insert(85)
-// heap.insert(250)
-// heap.insert(6)
-// heap.insert(54)
-// heap.insert(32)
-// heap.insert(20)
-// heap.insert(3)
-// heap.insert(1)
-// heap.insert(5)
+const graph = new Graph()
 
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
-// console.log(heap.process())
+graph.addNode(1, '张三')
+graph.addNode(2, '李四')
+graph.addNode(3, '王五')
 
-heap.insert('打扫卫生', 5)
-heap.insert('看书', 15)
-heap.insert('做饭', 20)
-heap.insert('学习', 10)
-heap.insert('运动', 1)
+graph.addEdge(1, 2)
+graph.addEdge(1, 3)
+graph.addEdge(3, 2)
 
-console.log(heap.process())
-console.log(heap.process())
-console.log(heap.process())
-console.log(heap)
+console.log(graph)
