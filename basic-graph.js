@@ -53,35 +53,27 @@ class Graph {
   }
 }
 
-const netWork = new Graph()
+const graph = new Graph()
 
-netWork.addNode('张三', { name: '张三', age: 25 })
-netWork.addNode('李四', { name: '李四', age: 32 })
-netWork.addNode('王五', { name: '王五', age: 15 })
-netWork.addNode('赵六', { name: '赵六', age: 26 })
-netWork.addNode('孙七', { name: '孙七', age: 54 })
-netWork.addNode('周八', { name: '周八', age: 47 })
+graph.addNode(1, '张三')
+graph.addNode(2, '李四')
+graph.addNode(3, '王五')
+// graph.addNode(1, '赵六')
 
-netWork.addEdge('张三', '李四')
-netWork.addEdge('李四', '张三')
-netWork.addEdge('李四', '王五')
-netWork.addEdge('王五', '李四')
-netWork.addEdge('李四', '赵六')
-netWork.addEdge('赵六', '王五')
-netWork.addEdge('王五', '赵六')
-netWork.addEdge('赵六', '孙七')
-netWork.addEdge('孙七', '赵六')
-netWork.addEdge('孙七', '周八')
-netWork.addEdge('周八', '孙七')
+graph.addEdge(1, 2)
+graph.addEdge(1, 3)
+graph.addEdge(3, 2)
 
-console.log(netWork.hasEdge('张三', '周八'))
-console.log(netWork.hasEdge('赵六', '王五'))
+console.log(graph.hasEdge(1, 2))
+console.log(graph.hasEdge(2, 3))
 
-console.log(netWork.getAllEdges('赵六'))
+console.log(graph.getAllEdges(1))
+console.log(graph.getAllEdges(2))
+console.log(graph.getAllEdges(3))
 
-netWork.removeNode('赵六')
+// graph.removeNode(2)
 
-// netWork.removeEdge('孙七', '李四')
-netWork.removeEdge('张三', '李四')
+// graph.removeEdge(2, 1)
+graph.removeEdge(1, 3)
 
-console.log(netWork)
+console.log(graph)
